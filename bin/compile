@@ -19,8 +19,9 @@ BP_DIR=$(cd $(dirname ${0:-}); cd ..; pwd)
 $BP_DIR/compile-extensions/bin/check_stack_support
 
 mkdir -p "$BUILD_DIR/.heroku/node/"
+mkdir -p "$BUILD_DIR/.amalgam8/"
 cd $BUILD_DIR
-export PATH="$BUILD_DIR/.heroku/node/bin":$PATH
+export PATH="$BUILD_DIR/.amalgam8/usr/sbin":"$BUILD_DIR/.amalgam8/usr/bin":"$BUILD_DIR/.heroku/node/bin":$PATH
 
 # CF Common
 export BUILDPACK_PATH=$BP_DIR
@@ -79,6 +80,9 @@ create_env() {
   export_env_dir "$ENV_DIR"
   create_default_env
 }
+
+header "Installing a8sidecar"
+install_a8sidcar "$BUILD_DIR/.amalgam8" | output "$LOG_FILE"
 
 header "Creating runtime environment"
 create_env # can't pipe the whole thing because piping causes subshells, preventing exports

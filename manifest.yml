@@ -3,6 +3,8 @@ language: nodejs
 default_versions:
 - name: node
   version: 4.6.2
+- name: a8sidecar
+  version: 0.4.2
 exclude_files:
 - ".git/"
 - ".gitignore"
@@ -16,6 +18,9 @@ exclude_files:
 url_to_dependency_map:
 - match: node\/v(\d+\.\d+\.\d+)
   name: node
+  version: "$1"
+- match: a8sidecar.*v(\d+\.\d+\.\d+)
+  name: a8sidecar
   version: "$1"
 dependencies:
 - name: node
@@ -76,5 +81,11 @@ dependencies:
   version: 7.2.0
   uri: https://buildpacks.cloudfoundry.org/dependencies/node/node-7.2.0-linux-x64.tgz
   md5: 28a032eee95792e8cb69d76e133172cb
+  cf_stacks:
+  - cflinuxfs2
+- name: a8sidecar
+  version: 0.4.2
+  uri: https://github.com/amalgam8/amalgam8/releases/download/v0.4.2/a8sidecar-v0.4.2-linux-amd64.tar.gz
+  md5: c8e9d38e5cfa697e92a2301fe30a73d0
   cf_stacks:
   - cflinuxfs2

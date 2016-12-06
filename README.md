@@ -1,15 +1,40 @@
-# Cloud Foundry Node.js Buildpack
-[![CF Slack](https://s3.amazonaws.com/buildpacks-assets/buildpacks-slack.svg)](http://slack.cloudfoundry.org)
+# IBM Node.js Buildpack with Amalgam8 Sidecar
 
-A Cloud Foundry [buildpack](http://docs.cloudfoundry.org/buildpacks/) for Node based apps.
-
-This is based on the [Heroku buildpack] (https://github.com/heroku/heroku-buildpack-nodejs).
+A Cloud Foundry [buildpack](http://docs.cloudfoundry.org/buildpacks/) for Node based apps using [Amalgam8 Sidecar](https://www.amalgam8.io/docs/sidecar.html). This is based on the [Cloud Foundry buildpack for Node.js] (https://github.com/cloudfoundry/nodejs-buildpack).
 
 Additional documentation can be found at the [CloudFoundry.org](http://docs.cloudfoundry.org/buildpacks/node/index.html).
 
-### Buildpack User Documentation
-
 Official buildpack documentation can be found at http://docs.cloudfoundry.org/buildpacks/node/index.html).
+
+### Amalgam8 Sidecar Support
+This buildpack provides Amalgam8 Sidecar support for Node.js applications.
+
+Your application must provide the Cloud Foundry application with the `A8_CONFIG` environment variable.  The `A8_CONFIG` value should be the path to a a8sidecar YAML configuration file.
+
+The a8sidcar YAML configuration file, must include the `commands` property, as follows:
+
+```yaml
+commands:
+  - cmd: [ "npm", "start" ]
+    on_exit: terminate
+
+```
+
+And the Node application's `package.json` must define the startup scripts, as follows:
+
+```json
+{
+    "name": "helloworld",
+    "version": "0.0.0",
+    "dependencies": {
+        "express": "~4.x",
+    },
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js"
+    }
+}
+```
 
 ### Building the Buildpack
 
@@ -51,18 +76,6 @@ BUNDLE_GEMFILE=cf.Gemfile bundle exec buildpack-build
 
 More options can be found on Machete's [GitHub page.](https://github.com/cloudfoundry/machete)
 
-### Contributing
-
-Find our guidelines [here](./CONTRIBUTING.md).
-
-### Help and Support
-
-Join the #buildpacks channel in our [Slack community] (http://slack.cloudfoundry.org/)
 
 ### Reporting Issues
-
 Open an issue on this project
-
-### Active Development
-
-The project backlog is on [Pivotal Tracker](https://www.pivotaltracker.com/projects/1042066)

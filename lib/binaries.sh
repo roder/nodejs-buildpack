@@ -89,3 +89,36 @@ install_npm() {
     fi
   fi
 }
+
+install_a8sidcar() {
+  local exit_code=0
+  local dir="$1"
+  local bp_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )"
+  local default_version=$($bp_dir/compile-extensions/bin/default_version_for $bp_dir/manifest.yml a8sidecar)
+  local a8sidecar_release=v${default_version}
+  local download_url=https://github.com/amalgam8/amalgam8/releases/download/${a8sidecar_release}/a8sidecar-${a8sidecar_release}-linux-amd64.tar.gz
+  local translated_url=$($bp_dir/compile-extensions/bin/download_dependency $download_url /tmp) || exit_code=$?
+  local a8tmp="/tmp/a8tmp"
+
+  echo "Downloading a8sidecar from ${translated_url}"
+
+  if [ $exit_code -ne 0 ]; then
+    echo -e "`$bp_dir/compile-extensions/bin/recommend_dependency $download_url`" 1>&2
+    exit 22
+  fi
+
+  ##Install OpenResty from Amalgam8 repo
+  ## Compared to OpenResty stock configuration, this binary has been compiled to place config files in /etc/nginx,
+  ## log files in /var/log/nginx and nginx binary in /usr/sbin/nginx.
+  mkdir -p $a8tmp
+
+  tar -xzf /tmp/a8sidecar-${a8sidecar_release}-linux-amd64.tar.gz -C $a8tmp
+  tar -xzf $a8tmp/opt/openresty_dist/*.tar.gz -C $dir
+
+  #Install Sidecar -- This should be in the end, as it overwrites default nginx.conf, filebeat.yml
+  tar -xzf /tmp/a8sidecar-${a8sidecar_release}-linux-amd64.tar.gz -C $dir
+
+  #Cleanup
+  rm -rf ${a8tmp}
+  rm /tmp/a8sidecar-${a8sidecar_release}-linux-amd64.tar.gz
+}
