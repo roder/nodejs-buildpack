@@ -29,6 +29,7 @@ detect_memory() {
 export PATH="$HOME/.amalgam8/usr/sbin":"$HOME/.amalgam8/usr/bin":"$HOME/.heroku/node/bin:$PATH:$HOME/bin:$HOME/node_modules/.bin"
 export NODE_HOME="$HOME/.heroku/node"
 export NODE_ENV=${NODE_ENV:-production}
+export LD_LIBRARY_PATH="$HOME/.amalgam8/usr/local/openresty/luajit/lib/"
 
 calculate_concurrency
 
