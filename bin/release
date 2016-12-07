@@ -4,5 +4,5 @@
 cat << EOF
 addons: []
 default_process_types:
-  web: LD_LIBRARY_PATH=${HOME}/usr/local/openresty/luajit/lib/ a8sidecar
+  web: a8sidecar
 EOF
