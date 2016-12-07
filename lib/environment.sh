@@ -4,7 +4,7 @@ create_default_env() {
   export NPM_CONFIG_LOGLEVEL=${NPM_CONFIG_LOGLEVEL:-error}
   export NODE_MODULES_CACHE=${NODE_MODULES_CACHE:-true}
   export NODE_ENV=${NODE_ENV:-production}
-  export LD_LIBRARY_PATH=${dir}/.amalgam8/usr/local/openresty/luajit/lib:$LD_LIBRARY_PATH
+  export LD_LIBRARY_PATH=${dir}/.amalgam8/usr/local/openresty/luajit/lib
 }
 
 list_node_config() {
