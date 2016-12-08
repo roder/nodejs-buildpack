@@ -27,7 +27,7 @@ And the Node application's `package.json` must define the startup scripts, as fo
     "name": "helloworld",
     "version": "0.0.0",
     "dependencies": {
-        "express": "~4.x",
+        "express": "~4.x"
     },
     "main": "index.js",
     "scripts": {
