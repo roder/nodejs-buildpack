@@ -20,6 +20,7 @@ $BP_DIR/compile-extensions/bin/check_stack_support
 
 mkdir -p "$BUILD_DIR/.heroku/node/"
 mkdir -p "$BUILD_DIR/.amalgam8/"
+alias nginx="nginx -c $BUILD_DIR/.amalgam8/etc/nginx/nginx.conf -p $BUILD_DIR/.amalgam8"
 cd $BUILD_DIR
 export PATH="$BUILD_DIR/.amalgam8/usr/sbin":"$BUILD_DIR/.amalgam8/usr/bin":"$BUILD_DIR/.heroku/node/bin":$PATH
 
