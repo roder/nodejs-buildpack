@@ -30,6 +30,8 @@ export PATH="$HOME/.amalgam8/usr/sbin":"$HOME/.amalgam8/usr/bin":"$HOME/.heroku/
 export NODE_HOME="$HOME/.heroku/node"
 export NODE_ENV=${NODE_ENV:-production}
 export LD_LIBRARY_PATH="$HOME/.amalgam8/usr/local/openresty/luajit/lib/"
+alias nginx="nginx -c $HOME/.amalgam8/etc/nginx/nginx.conf -p $HOME/.amalgam8"
+
 
 calculate_concurrency
 
