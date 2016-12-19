@@ -118,6 +118,11 @@ install_a8sidcar() {
   #Install Sidecar -- This should be in the end, as it overwrites default nginx.conf, filebeat.yml
   tar -xzf /tmp/a8sidecar-${a8sidecar_release}-linux-amd64.tar.gz -C $dir
 
+  # Update Nginx configuration files for Sidecar. This overwrites the downloaded configuration files from above with the config files in `lib/vendor/amalgam8`
+  for f in `ls ${dir}/lib/vendor/amalgam8`; do
+    APP_ROOT=$dir erb ${bp_dir}/lib/vendor/amalgam8/${f} > ${dir}/${f}
+  done
+
   #Cleanup
   rm -rf ${a8tmp}
   rm /tmp/a8sidecar-${a8sidecar_release}-linux-amd64.tar.gz
