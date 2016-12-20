@@ -119,8 +119,10 @@ install_a8sidcar() {
   tar -xzf /tmp/a8sidecar-${a8sidecar_release}-linux-amd64.tar.gz -C $dir
 
   # Update Nginx configuration files for Sidecar. This overwrites the downloaded configuration files from above with the config files in `lib/vendor/amalgam8`
-  for f in `ls ${dir}/lib/vendor/amalgam8`; do
-    APP_ROOT=$dir erb ${bp_dir}/lib/vendor/amalgam8/${f} > ${dir}/${f}
+  for f in `ls ${bp_dir}/lib/vendor/amalgam8`; do
+    echo "${f} to ${dir}/.amalgam8/etc/nginx/${f}"
+    APP_ROOT=$dir erb ${bp_dir}/lib/vendor/amalgam8/${f} > ${dir}/.amalgam8/etc/nginx/${f}
+    head ${dir}/.amalgam8/etc/nginx/${f}
   done
 
   #Cleanup
