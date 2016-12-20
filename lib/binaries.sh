@@ -120,9 +120,15 @@ install_a8sidcar() {
 
   # Update Nginx configuration files for Sidecar. This overwrites the downloaded configuration files from above with the config files in `lib/vendor/amalgam8`
   for f in `ls ${bp_dir}/lib/vendor/amalgam8`; do
-    echo "${f} to ${dir}/.amalgam8/etc/nginx/${f}"
-    APP_ROOT=$dir erb ${bp_dir}/lib/vendor/amalgam8/${f} > ${dir}/.amalgam8/etc/nginx/${f}
-    head ${dir}/.amalgam8/etc/nginx/${f}
+    local conf_source=${bp_dir}/lib/vendor/amalgam8/${f}
+    local conf_dest=${dir}/etc/nginx/${f}
+
+    echo "Writing template from ${conf_source} to ${conf_dest}."
+    APP_ROOT=$dir erb ${conf_source} > ${conf_dest}
+
+    echo "Templated output preview for ${conf_dest}:"
+    head ${conf_dest}
+    echo "Preview complete."
   done
 
   #Cleanup
