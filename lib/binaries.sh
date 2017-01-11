@@ -115,7 +115,7 @@ install_a8sidcar() {
   tar -xzf /tmp/a8sidecar-${a8sidecar_release}-linux-amd64.tar.gz -C $a8tmp
   # tar -xzf $a8tmp/opt/openresty_dist/*.tar.gz -C $dir
   # Install CF-based OpenResty
-  tar -xzf $bp_dir/openresty-*.tar.gz -C $dir
+  tar -xzf $bp_dir/vendor/openresty-*.tar.gz -C $dir
 
   #Install Sidecar -- This should be in the end, as it overwrites default nginx.conf, filebeat.yml
   tar -xzf /tmp/a8sidecar-${a8sidecar_release}-linux-amd64.tar.gz -C $dir
